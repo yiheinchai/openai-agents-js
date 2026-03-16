@@ -25,7 +25,7 @@ jobs:
         run: pnpm run build:ci
 
       - name: Run agent eval
-        uses: yiheinchai/trickle@v1.0.0
+        uses: yiheinchai/trickle@v1.0.2
         with:
           command: "npx tsx examples/basic/hello-world.ts"
           fail-under: 0
