@@ -1,0 +1,31 @@
+name: Trickle Agent Eval
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install pnpm
+        run: npm install -g pnpm@10
+
+      - name: Install project dependencies
+        run: pnpm install
+
+      - name: Build packages
+        run: pnpm run build:ci
+
+      - name: Run agent eval
+        uses: yiheinchai/trickle@v1.0.2
+        with:
+          command: "npx tsx examples/basic/hello-world.ts"
+          fail-under: 0
