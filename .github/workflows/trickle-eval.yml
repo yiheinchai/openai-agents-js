@@ -15,8 +15,14 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Install pnpm
+        run: npm install -g pnpm@10
+
       - name: Install project dependencies
-        run: npm install
+        run: pnpm install
+
+      - name: Build packages
+        run: pnpm run build:ci
 
       - name: Run agent eval
         uses: yiheinchai/trickle@v1.0.0
